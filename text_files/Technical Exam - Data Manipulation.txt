@@ -1,0 +1,111 @@
+Technical Exam
+
+Using the initial data below create a function that will achieve the expected result data show it to console:
+
+Initial data:
+
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "status": 1
+  },
+  {
+    "id": 2,
+    "name": "Jane Doe",
+    "status": 2
+  },
+  {
+    "id": 3,
+    "name": "Adam Rocket",
+    "status": 2
+  },
+  {
+    "id": 4,
+    "name": "Luis Rocket",
+    "status": 1
+  }
+]
+
+Expected Result Data:
+
+{
+ "status-1": [
+  {
+   "id": 1,
+   "name": "John Doe",
+   "status": 1
+  },
+  {
+   "id": 4,
+   "name": "Luis Rocket",
+   "status": 1
+  }
+ ],
+ "status-2": [
+  {
+   "id": 2,
+   "name": "Jane Doe",
+   "status": 2
+  },
+  {
+   "id": 3,
+   "name": "Adam Rocket",
+   "status": 2
+  }
+ ]
+}
+
+=======
+Answer:
+=======
+
+const todosData = [
+  {
+    id: 1,
+    name: "John Doe",
+    status: 1,
+  },
+  {
+    id: 2,
+    name: "Jane Doe",
+    status: 2,
+  },
+  {
+    id: 3,
+    name: "Adam Rocket",
+    status: 2,
+  },
+  {
+    id: 4,
+    name: "Luis Rocket",
+    status: 1,
+  },
+];
+
+let todosList: { id: number; name: string; status: number }[] = [];
+let todosList2: { id: number; name: string; status: number }[] = [];
+
+const MyComponent = () => {
+  todosData.sort(function (x, y) {
+    return x.status - y.status;
+  });
+  todosData.map(function (list) {
+    var data = {
+      id: list.id,
+      name: list.name,
+      status: list.status,
+    };
+    list.status === 1 ? todosList.push(data) : todosList2.push(data);
+  });
+  console.log(
+    JSON.stringify({ "status-1": todosList, "status-2": todosList2 }, null, 2)
+  );
+  return <h2>Check console log</h2>;
+};
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <MyComponent />
+  </React.StrictMode>
+);
